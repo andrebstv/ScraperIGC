@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScraperIGC", "ScraperIGC\ScraperIGC.csproj", "{E7F34A70-6147-401D-99A2-563AEB5B7AB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7F34A70-6147-401D-99A2-563AEB5B7AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7F34A70-6147-401D-99A2-563AEB5B7AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7F34A70-6147-401D-99A2-563AEB5B7AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7F34A70-6147-401D-99A2-563AEB5B7AB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BAA2BE51-4352-4FCE-AA2A-0C083B41AAA5}
+	EndGlobalSection
+EndGlobal
