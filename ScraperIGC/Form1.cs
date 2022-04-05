@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ScraperIGC
 {
@@ -18,7 +19,32 @@ namespace ScraperIGC
         {
             InitializeComponent();
         }
+        
+        public class Waypoint
+        {
+            public Waypoint() 
+            {
+                this.hora = new DateTime();
+                this.latitude = new Coordenada();
+                this.longitude = new Coordenada();
+            }
+            public DateTime hora;
+            public Coordenada latitude;
+            public Coordenada longitude;
+            public float altura;
 
+        }
+        public class Coordenada
+        {
+            public int graus;
+            public float minutos;
+            public Coordenada()
+            {
+                graus = 0;
+                minutos = 0;
+            }
+        }
+        
         private void bt_puxa_ids_Click(object sender, EventArgs e)
         {
             WebClient leitorweb = new WebClient();
@@ -54,6 +80,69 @@ namespace ScraperIGC
                 }
             }
 
+        }
+
+        private void bt_abre_igc_Click(object sender, EventArgs e)
+        {
+            string resultado = "name,code,country,lat,lon,elev,style,rwdir,rwlen,freq,desc\r\n";
+            if (abridorIGCs.ShowDialog() == DialogResult.OK)
+            {
+                //tb_igc.Clear();
+                int count_termais = 0;
+                foreach (string arquivo in abridorIGCs.FileNames)
+                {
+                    tb_igc.Text = System.IO.File.ReadAllText(arquivo);
+                    Regex rx = new Regex(@"B(\d{13})(\w{1}\d{8})(\w{2}\d{10})", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection linhasB = rx.Matches(tb_igc.Text);
+                    int i = 0;
+                    Waypoint[] termais = new Waypoint[2000];
+                    Waypoint[] linhas = new Waypoint[int.Parse(tb_tempo_analise.Text)];
+                    //B151230-1954998S-04028313-WA-00765-00816-39
+                    bool flag_termal = true;
+                    foreach (Match registros in linhasB)
+                    {
+                        linhas[i] = new Waypoint();
+                        linhas[i].hora = new DateTime(2010, 1, 1, int.Parse(registros.ToString().Substring(1, 2)),
+                                                                  int.Parse(registros.ToString().Substring(3, 2)),
+                                                                  int.Parse(registros.ToString().Substring(5, 2)));
+
+                        linhas[i].latitude.graus = int.Parse(registros.ToString().Substring(7, 2));
+                        linhas[i].latitude.minutos = float.Parse(registros.ToString().Substring(9, 5))/(float)1000.0;
+
+                        linhas[i].longitude.graus = int.Parse(registros.ToString().Substring(15, 3));
+                        linhas[i].longitude.minutos = float.Parse(registros.ToString().Substring(18, 5)) / (float)1000.0;
+
+                        linhas[i].altura = int.Parse(registros.ToString().Substring(25, 5));
+                        if (((i % int.Parse(tb_tempo_analise.Text)) == 0) && i > 0)
+                        {
+                            if (((linhas[i].altura - linhas[i - 5].altura) > 7) && (flag_termal))
+                            {
+                                termais[count_termais] = linhas[i - 1];
+                                count_termais++;
+                                flag_termal = false; //Impede um novo registro.
+                            }
+                            else if ((linhas[i].altura - linhas[i - 5].altura) < 7)
+                            {
+                                flag_termal = true;
+                            }
+                        }
+                        i++;
+                        if (i > 10) i = 0;
+                    }
+                    //tb_igc.Clear();
+                    for (int j = 0; j < count_termais; j++)
+                    {
+
+                        resultado = resultado + "T" + j + ",T" + j + ",,"
+                                    + termais[j].latitude.graus + termais[j].latitude.minutos.ToString("G",System.Globalization.CultureInfo.InvariantCulture) + "S,0"
+                                    + termais[j].longitude.graus + termais[j].longitude.minutos.ToString("G", System.Globalization.CultureInfo.InvariantCulture) + "W,"
+                                    + termais[j].altura + ".0m,1,,,," + "T" + j +"\n\r";
+
+                    }
+                }
+                tb_igc.Text = resultado;
+                lb_termais.Text = "Termais:" + count_termais.ToString();
+            }
         }
     }
 }

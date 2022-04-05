@@ -38,6 +38,15 @@ namespace ScraperIGC
             this.label3 = new System.Windows.Forms.Label();
             this.bt_puxa_igs = new System.Windows.Forms.Button();
             this.escolhe_pasta = new System.Windows.Forms.FolderBrowserDialog();
+            this.bt_abre_igc = new System.Windows.Forms.Button();
+            this.abridorIGCs = new System.Windows.Forms.OpenFileDialog();
+            this.lb_termais = new System.Windows.Forms.Label();
+            this.tb_vel_term = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tb_tempo_analise = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -96,7 +105,7 @@ namespace ScraperIGC
             this.tb_igc.Location = new System.Drawing.Point(302, 84);
             this.tb_igc.Multiline = true;
             this.tb_igc.Name = "tb_igc";
-            this.tb_igc.Size = new System.Drawing.Size(474, 337);
+            this.tb_igc.Size = new System.Drawing.Size(376, 337);
             this.tb_igc.TabIndex = 6;
             // 
             // label3
@@ -123,11 +132,105 @@ namespace ScraperIGC
             this.bt_puxa_igs.UseVisualStyleBackColor = false;
             this.bt_puxa_igs.Click += new System.EventHandler(this.bt_puxa_igs_Click);
             // 
+            // bt_abre_igc
+            // 
+            this.bt_abre_igc.BackColor = System.Drawing.SystemColors.Control;
+            this.bt_abre_igc.BackgroundImage = global::ScraperIGC.Properties.Resources.pngwing_com;
+            this.bt_abre_igc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bt_abre_igc.FlatAppearance.BorderSize = 0;
+            this.bt_abre_igc.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.bt_abre_igc.Location = new System.Drawing.Point(697, 84);
+            this.bt_abre_igc.Name = "bt_abre_igc";
+            this.bt_abre_igc.Size = new System.Drawing.Size(95, 80);
+            this.bt_abre_igc.TabIndex = 8;
+            this.bt_abre_igc.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.bt_abre_igc.UseVisualStyleBackColor = false;
+            this.bt_abre_igc.Click += new System.EventHandler(this.bt_abre_igc_Click);
+            // 
+            // abridorIGCs
+            // 
+            this.abridorIGCs.Filter = "Arquivos IGC (*.igc)|*.igc";
+            this.abridorIGCs.Multiselect = true;
+            // 
+            // lb_termais
+            // 
+            this.lb_termais.AutoSize = true;
+            this.lb_termais.Location = new System.Drawing.Point(697, 181);
+            this.lb_termais.Name = "lb_termais";
+            this.lb_termais.Size = new System.Drawing.Size(47, 13);
+            this.lb_termais.TabIndex = 9;
+            this.lb_termais.Text = "Termais:";
+            this.lb_termais.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // tb_vel_term
+            // 
+            this.tb_vel_term.Location = new System.Drawing.Point(795, 210);
+            this.tb_vel_term.Name = "tb_vel_term";
+            this.tb_vel_term.Size = new System.Drawing.Size(27, 20);
+            this.tb_vel_term.TabIndex = 10;
+            this.tb_vel_term.Text = "2";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(697, 211);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(92, 15);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Valor Minimo";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(822, 213);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(25, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "m/s";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(822, 237);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(12, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "s";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(691, 235);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(102, 15);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Tempo Analise";
+            // 
+            // tb_tempo_analise
+            // 
+            this.tb_tempo_analise.Location = new System.Drawing.Point(795, 234);
+            this.tb_tempo_analise.Name = "tb_tempo_analise";
+            this.tb_tempo_analise.Size = new System.Drawing.Size(27, 20);
+            this.tb_tempo_analise.TabIndex = 13;
+            this.tb_tempo_analise.Text = "30";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(866, 450);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.tb_tempo_analise);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.tb_vel_term);
+            this.Controls.Add(this.lb_termais);
+            this.Controls.Add(this.bt_abre_igc);
             this.Controls.Add(this.bt_puxa_igs);
             this.Controls.Add(this.tb_igc);
             this.Controls.Add(this.label3);
@@ -154,6 +257,15 @@ namespace ScraperIGC
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button bt_puxa_igs;
         private System.Windows.Forms.FolderBrowserDialog escolhe_pasta;
+        private System.Windows.Forms.Button bt_abre_igc;
+        private System.Windows.Forms.OpenFileDialog abridorIGCs;
+        private System.Windows.Forms.Label lb_termais;
+        private System.Windows.Forms.TextBox tb_vel_term;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tb_tempo_analise;
     }
 }
 
