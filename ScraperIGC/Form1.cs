@@ -89,13 +89,13 @@ namespace ScraperIGC
             {
                 //tb_igc.Clear();
                 int count_termais = 0;
+                Waypoint[] termais = new Waypoint[2000];
                 foreach (string arquivo in abridorIGCs.FileNames)
                 {
                     tb_igc.Text = System.IO.File.ReadAllText(arquivo);
                     Regex rx = new Regex(@"B(\d{13})(\w{1}\d{8})(\w{2}\d{10})", RegexOptions.Compiled | RegexOptions.IgnoreCase);
                     MatchCollection linhasB = rx.Matches(tb_igc.Text);
                     int i = 0;
-                    Waypoint[] termais = new Waypoint[2000];
                     Waypoint[] linhas = new Waypoint[int.Parse(tb_tempo_analise.Text)];
                     //B151230-1954998S-04028313-WA-00765-00816-39
                     bool flag_termal = true;
@@ -113,32 +113,32 @@ namespace ScraperIGC
                         linhas[i].longitude.minutos = float.Parse(registros.ToString().Substring(18, 5)) / (float)1000.0;
 
                         linhas[i].altura = int.Parse(registros.ToString().Substring(25, 5));
-                        if (((i % int.Parse(tb_tempo_analise.Text)) == 0) && i > 0)
+                        if (i == int.Parse(tb_tempo_analise.Text)-1)
                         {
-                            if (((linhas[i].altura - linhas[i - 5].altura) > 7) && (flag_termal))
+                            if ((linhas[int.Parse(tb_tempo_analise.Text)-1].altura - linhas[0].altura) > (int.Parse(tb_tempo_analise.Text)*float.Parse(tb_vel_term.Text)) && (flag_termal))
                             {
-                                termais[count_termais] = linhas[i - 1];
+                                termais[count_termais] = linhas[0];
                                 count_termais++;
                                 flag_termal = false; //Impede um novo registro.
                             }
-                            else if ((linhas[i].altura - linhas[i - 5].altura) < 7)
+                            else if ((linhas[int.Parse(tb_tempo_analise.Text) - 1].altura - linhas[0].altura) < (int.Parse(tb_tempo_analise.Text) * float.Parse(tb_vel_term.Text)))
                             {
                                 flag_termal = true;
                             }
                         }
                         i++;
-                        if (i > 10) i = 0;
+                        if (i > int.Parse(tb_tempo_analise.Text)-1) i = 0;
                     }
                     //tb_igc.Clear();
-                    for (int j = 0; j < count_termais; j++)
-                    {
+                }
+                for (int j = 0; j < count_termais; j++)
+                {
 
-                        resultado = resultado + "T" + j + ",T" + j + ",,"
-                                    + termais[j].latitude.graus + termais[j].latitude.minutos.ToString("G",System.Globalization.CultureInfo.InvariantCulture) + "S,0"
-                                    + termais[j].longitude.graus + termais[j].longitude.minutos.ToString("G", System.Globalization.CultureInfo.InvariantCulture) + "W,"
-                                    + termais[j].altura + ".0m,1,,,," + "T" + j +"\n\r";
+                    resultado = resultado + "T" + j + ",T" + j + ",,"
+                                + termais[j].latitude.graus + termais[j].latitude.minutos.ToString("G",System.Globalization.CultureInfo.InvariantCulture) + "S,0"
+                                + termais[j].longitude.graus + termais[j].longitude.minutos.ToString("G", System.Globalization.CultureInfo.InvariantCulture) + "W,"
+                                + termais[j].altura + ".0m,1,,,," + "T" + j +"\n\r";
 
-                    }
                 }
                 tb_igc.Text = resultado;
                 lb_termais.Text = "Termais:" + count_termais.ToString();
