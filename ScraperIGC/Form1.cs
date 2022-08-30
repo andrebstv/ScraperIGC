@@ -32,7 +32,6 @@ namespace ScraperIGC
             public Coordenada latitude;
             public Coordenada longitude;
             public float altura;
-
         }
         public class Coordenada
         {
@@ -42,6 +41,10 @@ namespace ScraperIGC
             {
                 graus = 0;
                 minutos = 0;
+            }
+            public double toDD()
+            {
+                return ((this.graus + this.minutos * 60.0)*-1.0);
             }
         }
         
@@ -93,12 +96,48 @@ namespace ScraperIGC
                 foreach (string arquivo in abridorIGCs.FileNames)
                 {
                     tb_igc.Text = System.IO.File.ReadAllText(arquivo);
+                    // 
                     Regex rx = new Regex(@"B(\d{13})(\w{1}\d{8})(\w{2}\d{10})", RegexOptions.Compiled | RegexOptions.IgnoreCase);
                     MatchCollection linhasB = rx.Matches(tb_igc.Text);
                     int i = 0;
                     Waypoint[] linhas = new Waypoint[int.Parse(tb_tempo_analise.Text)];
                     //B151230-1954998S-04028313-WA-00765-00816-39
                     bool flag_termal = true;
+                    float angulo;
+
+                    /*foreach (Match registros in linhasB)
+                    {
+                        linhas[i] = new Waypoint();
+                        linhas[i].hora = new DateTime(2010, 1, 1, int.Parse(registros.ToString().Substring(1, 2)),
+                                                                  int.Parse(registros.ToString().Substring(3, 2)),
+                                                                  int.Parse(registros.ToString().Substring(5, 2)));
+
+                        linhas[i].latitude.graus = int.Parse(registros.ToString().Substring(7, 2));
+                        linhas[i].latitude.minutos = float.Parse(registros.ToString().Substring(9, 5)) / (float)1000.0;
+
+                        linhas[i].longitude.graus = int.Parse(registros.ToString().Substring(15, 3));
+                        linhas[i].longitude.minutos = float.Parse(registros.ToString().Substring(18, 5)) / (float)1000.0;
+
+                        linhas[i].altura = int.Parse(registros.ToString().Substring(25, 5));
+                        if (i == 5)
+                        {
+                            //Calcula angulo
+                            double x, y;
+                            //double angle = Math.PI * degrees / 180.0;
+                            //X = cos θb * sin ∆L
+
+                            x = Math.Cos(Math.PI * linhas[i].longitude.toDD() / 180.0) *
+                                Math.Sin(Math.PI * (linhas[i].latitude.toDD() - linhas[0].latitude.toDD()) / 180.0);
+
+                            //Y = cos θa * sin θb – sin θa * cos θb * cos ∆L
+
+
+
+                            i = 0;
+                        }
+                        i++;
+                    }*/
+
                     foreach (Match registros in linhasB)
                     {
                         linhas[i] = new Waypoint();
@@ -113,6 +152,9 @@ namespace ScraperIGC
                         linhas[i].longitude.minutos = float.Parse(registros.ToString().Substring(18, 5)) / (float)1000.0;
 
                         linhas[i].altura = int.Parse(registros.ToString().Substring(25, 5));
+                        if (linhas[i].altura == 0 )
+                            linhas[i].altura = int.Parse(registros.ToString().Substring(30, 5));
+
                         if (i == int.Parse(tb_tempo_analise.Text)-1)
                         {
                             if ((linhas[int.Parse(tb_tempo_analise.Text)-1].altura - linhas[0].altura) > (int.Parse(tb_tempo_analise.Text)*float.Parse(tb_vel_term.Text)) && (flag_termal))
@@ -125,11 +167,15 @@ namespace ScraperIGC
                             {
                                 flag_termal = true;
                             }
+                            //for (int j = 0; j < i; j++)
+                            //{
+                              //  linhas[j] = linhas[j + 1];
+                            //}
                         }
                         i++;
                         if (i > int.Parse(tb_tempo_analise.Text)-1) i = 0;
                     }
-                    //tb_igc.Clear();
+                    //tb_igc.Clear(); */
                 }
                 for (int j = 0; j < count_termais; j++)
                 {
