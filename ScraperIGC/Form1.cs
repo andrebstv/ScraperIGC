@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Media;
 
 namespace ScraperIGC
 {
@@ -189,6 +190,28 @@ namespace ScraperIGC
                 tb_igc.Text = resultado;
                 lb_termais.Text = "Termais:" + count_termais.ToString();
             }
+        }
+
+        private void bt_puxa_rampa_Click(object sender, EventArgs e)
+        {
+            WebClient leitor_rampas = new WebClient();
+            String pagina_baixada;
+            Regex rx = new Regex(@"maps\.google\.com\/maps\?q=([a-zA-Z ]+)&ll=-(\d*\.?\d+\.\d+),-(\d*\.?\d+\.\d+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Match acerto;
+            SystemSounds.Asterisk.Play();
+            foreach (String s in tb_ids.Lines)
+            {
+
+                pagina_baixada = leitor_rampas.DownloadString(tb_link_rampas.Text + s + "&lang=brazilian") + Environment.NewLine;
+                acerto = rx.Match(pagina_baixada);
+                tb_igc.Text += "RP - " + acerto.Groups[1] +
+                                ";-" + acerto.Groups[2] +
+                                ";-" + acerto.Groups[3] +
+                                Environment.NewLine;
+
+            }
+            SystemSounds.Asterisk.Play();
+
         }
     }
 }

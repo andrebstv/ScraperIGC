@@ -47,6 +47,8 @@ namespace ScraperIGC
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tb_tempo_analise = new System.Windows.Forms.TextBox();
+            this.tb_link_rampas = new System.Windows.Forms.TextBox();
+            this.bt_puxa_rampa = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -72,11 +74,11 @@ namespace ScraperIGC
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 66);
+            this.label2.Location = new System.Drawing.Point(1, 66);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(138, 15);
+            this.label2.Size = new System.Drawing.Size(195, 15);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Lista de IDs de Voos";
+            this.label2.Text = "Lista de IDs de Voos/Rampas";
             // 
             // tb_ids
             // 
@@ -114,9 +116,9 @@ namespace ScraperIGC
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(313, 66);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 15);
+            this.label3.Size = new System.Drawing.Size(184, 15);
             this.label3.TabIndex = 5;
-            this.label3.Text = "ArquivoIGC";
+            this.label3.Text = "ArquivoIGC / Coord Rampas";
             // 
             // bt_puxa_igs
             // 
@@ -218,11 +220,35 @@ namespace ScraperIGC
             this.tb_tempo_analise.TabIndex = 13;
             this.tb_tempo_analise.Text = "30";
             // 
+            // tb_link_rampas
+            // 
+            this.tb_link_rampas.Location = new System.Drawing.Point(469, 25);
+            this.tb_link_rampas.Name = "tb_link_rampas";
+            this.tb_link_rampas.Size = new System.Drawing.Size(324, 20);
+            this.tb_link_rampas.TabIndex = 16;
+            this.tb_link_rampas.Text = "http://xcbrasil.com.br/GUI_EXT_waypoint_details.php?wID=";
+            // 
+            // bt_puxa_rampa
+            // 
+            this.bt_puxa_rampa.BackColor = System.Drawing.SystemColors.Highlight;
+            this.bt_puxa_rampa.FlatAppearance.BorderSize = 0;
+            this.bt_puxa_rampa.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.bt_puxa_rampa.Location = new System.Drawing.Point(795, 23);
+            this.bt_puxa_rampa.Name = "bt_puxa_rampa";
+            this.bt_puxa_rampa.Size = new System.Drawing.Size(90, 23);
+            this.bt_puxa_rampa.TabIndex = 17;
+            this.bt_puxa_rampa.Text = "Puxe Rampas";
+            this.bt_puxa_rampa.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.bt_puxa_rampa.UseVisualStyleBackColor = false;
+            this.bt_puxa_rampa.Click += new System.EventHandler(this.bt_puxa_rampa_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(866, 450);
+            this.ClientSize = new System.Drawing.Size(907, 450);
+            this.Controls.Add(this.bt_puxa_rampa);
+            this.Controls.Add(this.tb_link_rampas);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tb_tempo_analise);
@@ -266,6 +292,8 @@ namespace ScraperIGC
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tb_tempo_analise;
+        private System.Windows.Forms.TextBox tb_link_rampas;
+        private System.Windows.Forms.Button bt_puxa_rampa;
     }
 }
 
